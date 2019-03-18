@@ -1,0 +1,13 @@
+{
+    "name": "jonty/rincms",
+    "authors": [
+        {
+            "name": "Jonty",
+            "email": "jonty_wolf@hotmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {"RinCMS\\": "app/"}
+    }
+}
