@@ -1,6 +1,6 @@
 <?php
 /**
- * @author: Jonty Sponselee <jsponselee@student.scalda.nl>
+ * @author: Jonty Sponselee <jsponselee96@gmail.com>
  * @since: 3/17/2019
  */
 
@@ -24,7 +24,17 @@ require_once '../vendor/autoload.php';
     // Or show the 404 page if the requested page isn't found
 
 // Goal: CMS where admin can manage pages and users can view said pages
-$routeCollection = include 'Router/routecollection.php';
+
+$request = new \RinCMS\Http\Request(
+    filter_input_array(INPUT_GET, FILTER_DEFAULT) ?: [],
+    filter_input_array(INPUT_POST, FILTER_DEFAULT) ?: [],
+    filter_input_array(INPUT_SERVER, FILTER_DEFAULT) ?: [],
+    file_get_contents('php://input')
+);
+
+$response = new \RinCMS\Http\Response();
+
+$routeCollection = include 'Router/routeCollection.php';
 
 $Router = new \RinCMS\Router\Router( new \RinCMS\Router\RouteParser( new \RinCMS\Router\Route()));
 
@@ -33,8 +43,10 @@ $Router->addCollection($routeCollection);
 $Route = $Router->route();
 
 // todo:
-// HTTP REQUEST
-// HTTP RESPONSE
+// Add HTTP layer to the router
+// Add path variables to the router
+
+// ADMIN VIEW RENDERER
 // ADMIN LOGIN
 
 switch($Router->status){

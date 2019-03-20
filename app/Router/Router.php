@@ -6,7 +6,6 @@
  *
  * @author: Jonty Sponsleee <jsponselee97@gmail.com>
  * @since: 17/03/2019
- * @version 0.1 17/03/2019 Initial class definition.
  */
 declare(strict_types=1);
 
@@ -57,13 +56,13 @@ class Router
     /**
      * Give route data back to the corresponding request.
      *
-     * @return Route|null
+     * @return null|Route
      * @throws \Exception
      */
-    public function route()
+    public function route() : ?Route
     {
         if(!$route = $this->findMatch()) {
-            return false;
+            return null;
         }
 
         return $this->RouteParser->parseToObject($route);
@@ -75,9 +74,10 @@ class Router
      * $route[0]: Request method of the route
      * $route[1]: Uri of the route
      * $route[2]: Class and method for the route
+     *
      * @return array|null
      */
-    public function findMatch()
+    public function findMatch() : ?array
     {
         foreach ($this->routeCollection as $route) {
             if($this->requestUri === $route[1]){

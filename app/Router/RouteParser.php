@@ -6,7 +6,6 @@
  *
  * @author: Jonty Sponsleee <jsponselee97@gmail.com>
  * @since: 18/03/2019
- * @version 0.1 18/03/2019 Initial class definition.
  */
 declare(strict_types=1);
 
@@ -33,7 +32,7 @@ class RouteParser
      * @return Route
      * @throws \Exception
      */
-    public function parseToObject(array $route)
+    public function parseToObject(array $route) : Route
     {
         if(!preg_match('/@/', $route[2])){
             throw new \Exception('Route doesn\'t have the correct format!');

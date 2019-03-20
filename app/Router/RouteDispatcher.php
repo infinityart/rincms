@@ -6,7 +6,6 @@
  *
  * @author: Jonty Sponsleee <jsponselee97@gmail.com>
  * @since: 19/03/2019
- * @version 0.1 19/03/2019 Initial class definition.
  */
 declare(strict_types=1);
 
