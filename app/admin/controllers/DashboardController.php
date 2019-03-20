@@ -11,10 +11,19 @@ declare(strict_types=1);
 
 namespace RinCMS\Admin\Controllers;
 
-class DashboardController implements ControllerInterface
+use RinCMS\admin\models\user;
+
+class DashboardController extends AdminController implements ControllerInterface
 {
     public function show()
     {
-        return 'admin dashboard';
+        $user = new user();
+
+        $user->name = 'jonty';
+        $user->color = 'purple';
+
+        $html = $this->view('admin::template', ['user' => $user]);
+
+        $this->response->setContent($html);
     }
 }

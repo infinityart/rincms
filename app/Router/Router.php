@@ -27,20 +27,20 @@ class Router
     private $requestMethod;
 
     /** @var RouteParser */
-    private $RouteParser;
+    private $routeParser;
 
     /** @var int */
     public $status;
 
     /**
      * Router constructor.
-     * @param RouteParser $RouteParser
+     * @param RouteParser $routeParser
      */
-    public function __construct(RouteParser $RouteParser)
+    public function __construct(RouteParser $routeParser)
     {
         $this->requestUri = $_SERVER['REQUEST_URI'];
         $this->requestMethod = $_SERVER['REQUEST_METHOD'];
-        $this->RouteParser = $RouteParser;
+        $this->routeParser = $routeParser;
     }
 
     /**
@@ -65,7 +65,7 @@ class Router
             return null;
         }
 
-        return $this->RouteParser->parseToObject($route);
+        return $this->routeParser->parseToObject($route);
     }
 
     /**

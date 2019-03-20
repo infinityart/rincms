@@ -14,7 +14,7 @@ namespace RinCMS\Router;
 class RouteParser
 {
     /** @var Route */
-    private $Route;
+    private $route;
 
     /**
      * RouteParser constructor.
@@ -22,7 +22,7 @@ class RouteParser
      */
     public function __construct(Route $route)
     {
-        $this->Route = $route;
+        $this->route = $route;
     }
 
     /**
@@ -40,10 +40,10 @@ class RouteParser
 
         $routeInfo = preg_split('/@/', $route[2]);
 
-        $this->Route->class = $routeInfo[0];
-        $this->Route->method = $routeInfo[1];
+        $this->route->class = $routeInfo[0];
+        $this->route->method = $routeInfo[1];
 
-        return $this->Route;
+        return $this->route;
     }
 
 }

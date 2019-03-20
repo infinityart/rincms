@@ -11,10 +11,10 @@ declare(strict_types=1);
 
 namespace RinCMS\Site\Controllers;
 
-class HomeController implements ControllerInterface
+class HomeController extends SiteController implements ControllerInterface
 {
     public function show()
     {
-        return 'hello world';
+        $this->response->setContent('hello world');
     }
 }

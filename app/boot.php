@@ -31,16 +31,19 @@ $request = new \RinCMS\Http\Request(
     filter_input_array(INPUT_SERVER, FILTER_DEFAULT) ?: [],
     file_get_contents('php://input')
 );
-
 $response = new \RinCMS\Http\Response();
+$templates = new \League\Plates\Engine('../app/site/views/templates');
+
+$templates->setFileExtension('tpl');
+$templates->addFolder('admin', '../app/admin/views/templates');
 
 $routeCollection = include 'Router/routeCollection.php';
 
-$Router = new \RinCMS\Router\Router( new \RinCMS\Router\RouteParser( new \RinCMS\Router\Route()));
+$router = new \RinCMS\Router\Router( new \RinCMS\Router\RouteParser( new \RinCMS\Router\Route()));
 
-$Router->addCollection($routeCollection);
+$router->addCollection($routeCollection);
 
-$Route = $Router->route();
+$route = $router->route();
 
 // todo:
 // Add HTTP layer to the router
@@ -49,16 +52,22 @@ $Route = $Router->route();
 // ADMIN VIEW RENDERER
 // ADMIN LOGIN
 
-switch($Router->status){
-    case $Router::NOT_FOUND:
-        echo 'not found';
+switch($router->status){
+    case $router::NOT_FOUND:
+        $response->setStatusCode(404);
+        $response->setContent('Not Found');
         break;
-    case $Router::METHOD_NOT_ALLOWED:
-        echo 'Method not alllowed';
+    case $router::METHOD_NOT_ALLOWED:
+        $response->setStatusCode(405);
+        $response->setContent('Method not alllowed');
         break;
-    case $Router::FOUND:
-        $RouteDispatcher = new \RinCMS\Router\RouteDispatcher($Route);
+    case $router::FOUND:
+        $routeDispatcher = new \RinCMS\Router\RouteDispatcher($route);
 
-        $RouteDispatcher->dispatch();
+        $routeDispatcher->dispatch($request, $response, $templates);
         break;
 }
+
+$response->sendHeaders();
+
+echo $response->getContent();

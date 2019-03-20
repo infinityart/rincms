@@ -11,10 +11,14 @@ declare(strict_types=1);
 
 namespace RinCMS\Router;
 
+use League\Plates\Engine;
+use RinCMS\Http\Request;
+use RinCMS\Http\Response;
+
 class RouteDispatcher
 {
     /** @var Route */
-    private $Route;
+    private $route;
 
     /**
      * RouteDispatcher constructor.
@@ -22,23 +26,26 @@ class RouteDispatcher
      */
     public function __construct(Route $route)
     {
-        $this->Route = $route;
+        $this->route = $route;
     }
 
     /**
      * Dispatch the route.
      *
+     * @param Request $request
+     * @param Response $response
+     * @param Engine $templates
      * @throws \Exception
      */
-    public function dispatch()
+    public function dispatch(Request $request, Response $response, Engine $templates)
     {
-        if(!class_exists($this->Route->class))
+        if(!class_exists($this->route->class))
         {
             throw new \Exception('Controller class doesn\'t exists!');
         }
 
-        $object = new $this->Route->class;
-        $method = $this->Route->method;
+        $object = new $this->route->class($request, $response, $templates);
+        $method = $this->route->method;
 
         if (!method_exists($object, $method)) {
             throw new \Exception('Controller method doesn\'t exists!');
