@@ -11,5 +11,6 @@
 
 return [
     ['GET', '/', 'RinCMS\Site\Controllers\HomeController@show'],
-    ['GET', '/admin', 'RinCMS\Admin\Controllers\DashboardController@show']
+    ['GET', '/admin', 'RinCMS\Admin\Controllers\DashboardController@show'],
+    ['GET', '/admin/login', 'RinCMS\Admin\Controllers\LoginController@show']
 ];

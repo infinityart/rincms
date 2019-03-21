@@ -32,10 +32,10 @@ $request = new \RinCMS\Http\Request(
     file_get_contents('php://input')
 );
 $response = new \RinCMS\Http\Response();
-$templates = new \League\Plates\Engine('../app/site/views/templates');
+$templates = new \League\Plates\Engine('../app/site/views/');
 
 $templates->setFileExtension('tpl');
-$templates->addFolder('admin', '../app/admin/views/templates');
+$templates->addFolder('admin', '../app/admin/views/');
 
 $routeCollection = include 'Router/routeCollection.php';
 
