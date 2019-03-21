@@ -16,7 +16,7 @@ class LoginController extends AdminController implements ControllerInterface
 {
     public function show()
     {
-        $html = $this->templates->render('admin::login', ['title' => 'Login']);
+        $html = $this->templates->render('admin::template', ['title' => 'Login', 'layout' => 'login']);
 
         $this->response->setContent($html);
     }

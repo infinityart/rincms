@@ -59,7 +59,7 @@ switch($router->status){
         break;
     case $router::METHOD_NOT_ALLOWED:
         $response->setStatusCode(405);
-        $response->setContent('Method not alllowed');
+//        $response->setContent('Method not alllowed');
         break;
     case $router::FOUND:
         $routeDispatcher = new \RinCMS\Router\RouteDispatcher($route);

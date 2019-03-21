@@ -22,7 +22,7 @@ class DashboardController extends AdminController implements ControllerInterface
         $user->name = 'jonty';
         $user->color = 'purple';
 
-        $html = $this->view('admin::template', ['title' => 'Dashboard']);
+        $html = $this->view('admin::template', ['title' => 'Dashboard', 'layout' => 'dashboard']);
 
         $this->response->setContent($html);
     }
