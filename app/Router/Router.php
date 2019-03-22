@@ -38,7 +38,7 @@ class Router
      */
     public function __construct(RouteParser $routeParser)
     {
-        $this->requestUri = $_SERVER['REQUEST_URI'];
+        $this->requestUri = $this->parseRequestUri($_SERVER['REQUEST_URI']);
         $this->requestMethod = $_SERVER['REQUEST_METHOD'];
         $this->routeParser = $routeParser;
     }
@@ -79,20 +79,34 @@ class Router
      */
     public function findMatch() : ?array
     {
+        $possibleRoutes = [];
+
         foreach ($this->routeCollection as $route) {
             if($this->requestUri === $route[1]){
-                if($this->requestMethod !== $route[0])
-                {
-                    $this->status = self::METHOD_NOT_ALLOWED;
-                    return null;
-                }
+                $possibleRoutes[] = $route;
+            }
+        }
 
+        foreach ($possibleRoutes as $idx => $possibleRoute){
+            if($this->requestMethod === $possibleRoute[0])
+            {
                 $this->status = self::FOUND;
-                return $route;
+                return $possibleRoute;
+            }
+
+            if(end($possibleRoutes) === $idx){
+                $this->status = self::METHOD_NOT_ALLOWED;
+                return null;
             }
         }
 
         $this->status = self::NOT_FOUND;
         return null;
+    }
+
+    private function parseRequestUri(string $requestUri){
+        $requestUri = rtrim($requestUri, '/');
+
+        return $requestUri;
     }
 }

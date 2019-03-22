@@ -10,7 +10,8 @@
  */
 
 return [
-    ['GET', '/', 'RinCMS\Site\Controllers\HomeController@show'],
+    ['GET', '', 'RinCMS\Site\Controllers\HomeController@show'],
     ['GET', '/admin', 'RinCMS\Admin\Controllers\DashboardController@show'],
-    ['GET', '/admin/login', 'RinCMS\Admin\Controllers\LoginController@show']
+    ['GET', '/admin/login', 'RinCMS\Admin\Controllers\LoginController@show'],
+    ['POST', '/admin/login', 'RinCMS\Admin\Controllers\LoginController@login']
 ];
