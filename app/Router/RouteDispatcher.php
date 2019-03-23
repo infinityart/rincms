@@ -37,7 +37,7 @@ class RouteDispatcher
      * @param Engine $templates
      * @throws \Exception
      */
-    public function dispatch(Request $request, Response $response, Engine $templates)
+    public function dispatch(Request $request, Response $response, Engine $templates): void
     {
         if(!class_exists($this->route->class))
         {

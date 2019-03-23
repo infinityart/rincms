@@ -65,11 +65,12 @@ class Database
      * Return the used query type.
      * E.g.: INSERT, SELECT, UPDATE, DELETE
      *
-     * @param string $queryType
+     * @param string $query
      * @return string
      */
-    private function determineQueryType(string $queryType){
-        return strtok($queryType, ' ');
+    private function determineQueryType(string $query): string
+    {
+        return strtok(trim($query), ' ');
     }
 
     /**
@@ -100,7 +101,7 @@ class Database
      *
      * @param \PDOStatement $stmt
      */
-    private function showDebugInfo(\PDOStatement $stmt)
+    private function showDebugInfo(\PDOStatement $stmt): void
     {
         $stmt->debugDumpParams();
         echo "<br>{$this->config['driver']} Driver error:<br>";
@@ -145,7 +146,7 @@ class Database
      * @param ConnectionHandler $connection
      * @throws \Exception
      */
-    private function connect(ConnectionHandler $connection)
+    private function connect(ConnectionHandler $connection): void
     {
         $this->connection = $connection->resolve($this->config);
     }

@@ -24,7 +24,7 @@ class AdminController
     protected $response;
 
     /** @var Engine  */
-    protected $templates;
+    private $templates;
 
     /**
      * AdminController constructor.
@@ -43,7 +43,7 @@ class AdminController
     {
     }
 
-    protected function view(string $file, array $data)
+    protected function view(string $file, array $data): string
     {
         return $this->templates->render($file, $data);
     }

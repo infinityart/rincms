@@ -32,7 +32,7 @@ class RouteParser
      * @return Route
      * @throws \Exception
      */
-    public function parseToObject(array $route) : Route
+    public function parseToObject(array $route): Route
     {
         if(!preg_match('/@/', $route[2])){
             throw new \Exception('Route doesn\'t have the correct format!');

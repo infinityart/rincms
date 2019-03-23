@@ -12,34 +12,57 @@ declare(strict_types=1);
 namespace RinCMS\admin\controllers;
 
 
-use RinCMS\Database\Database;
+use RinCMS\Admin\Authenticator\Authenticator;
+use RinCMS\Admin\Models\Dao\DbUser;
+use RinCMS\Admin\Models\User;
+use RinCMS\Session\Session;
 
 class LoginController extends AdminController implements ControllerInterface
 {
     public function show()
     {
-        $html = $this->templates->render('admin::template', ['title' => 'Login', 'layout' => 'login']);
+        $session = new Session();
+        $authenticator = new Authenticator($session);
+
+        if($authenticator->authenticate())
+        {
+            $this->response->redirect('/admin');
+        }
+
+        $html = $this->view('admin::template', ['title' => 'Login', 'layout' => 'login']);
 
         $this->response->setContent($html);
     }
 
     public function login()
     {
-        $config =[
-            "driver" => 'Mysql',
-            'host' => 'localhost',
-            'username' => 'root',
-            'password' => '',
-            'database' => 'rincms'
-        ];
+        $dao = new DbUser();
+        $user = new User();
+        $session = new Session();
 
-        $db = new Database($config);
+        $formEmail = $this->request->getPostParameter('email', FILTER_VALIDATE_EMAIL);
+        $formPassword = $this->request->getPostParameter('password', FILTER_SANITIZE_STRING);
 
-        $select = "SELECT * FROM users";
+        if(empty($userResult = $dao->showByEmail((string) $formEmail))){
+            // Error email or pass are wrong
+            return;
+        }
 
-        $result = $db->query($select);
+        $user->setId((int)$userResult['id']);
+        $user->setName($userResult['name']);
+        $user->setEmail($userResult['email']);
+        $user->setPassword($userResult['password']);
 
-        var_dump($result);
-        echo 'loggin in';
+        if(!$user->passwordVerify((string) $formPassword)){
+            // Error email or pass are wrong
+            return;
+        }
+
+        $session->addToSession('user', $user);
+        $session->addToSession('lastActivity', time());
+
+        $session->regenerateID();
+
+        $this->response->redirect('/admin');
     }
 }

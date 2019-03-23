@@ -48,7 +48,7 @@ class Router
      *
      * @param array $routeCollection
      */
-    public function addCollection(array $routeCollection)
+    public function addCollection(array $routeCollection): void
     {
         $this->routeCollection = $routeCollection;
     }
@@ -59,7 +59,7 @@ class Router
      * @return null|Route
      * @throws \Exception
      */
-    public function route() : ?Route
+    public function route(): ?Route
     {
         if(!$route = $this->findMatch()) {
             return null;
@@ -77,7 +77,7 @@ class Router
      *
      * @return array|null
      */
-    public function findMatch() : ?array
+    public function findMatch(): ?array
     {
         $possibleRoutes = [];
 
@@ -104,7 +104,14 @@ class Router
         return null;
     }
 
-    private function parseRequestUri(string $requestUri){
+    /**
+     * Remove the last / in the request URI.
+     *
+     * @param string $requestUri
+     * @return string
+     */
+    private function parseRequestUri(string $requestUri): string
+    {
         $requestUri = rtrim($requestUri, '/');
 
         return $requestUri;

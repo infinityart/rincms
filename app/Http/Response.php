@@ -49,7 +49,7 @@ class Response
      *
      * @param int $statusCode
      */
-    public function setStatusCode(int $statusCode)
+    public function setStatusCode(int $statusCode): void
     {
         if (!array_key_exists($statusCode, $this->statusTexts)) {
             throw new \InvalidArgumentException('Status code doens\' exists.');
@@ -64,7 +64,7 @@ class Response
      *
      * @return int
      */
-    public function getStatusCode() : int
+    public function getStatusCode(): int
     {
         return $this->statusCode;
     }
@@ -75,7 +75,7 @@ class Response
      * @param string $name
      * @param string $value
      */
-    public function setHeader(string $name, string $value)
+    public function setHeader(string $name, string $value): void
     {
         $this->headers[$name] = $value;
     }
@@ -85,7 +85,7 @@ class Response
      *
      * @return array
      */
-    public function getHeaders() : array
+    public function getHeaders(): array
     {
         $headers = array_merge(
             $this->getRequestLineHeaders(),
@@ -100,7 +100,7 @@ class Response
      *
      * @param string $content
      */
-    public function setContent(string $content)
+    public function setContent(string $content): void
     {
         $this->content = $content;
     }
@@ -110,7 +110,7 @@ class Response
      *
      * @return string
      */
-    public function getContent() : string
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -120,7 +120,7 @@ class Response
      *
      * @param  string $url
      */
-    public function redirect($url)
+    public function redirect($url): void
     {
         $this->setHeader('Location', $url);
         $this->setStatusCode(301);
@@ -129,7 +129,7 @@ class Response
     /**
      * Send every stored header to the browser.
      */
-    public function sendHeaders()
+    public function sendHeaders(): void
     {
         foreach ($this->getHeaders() as $header){
             header($header);
@@ -141,7 +141,7 @@ class Response
      *
      * @return array
      */
-    private function getRequestLineHeaders() : array
+    private function getRequestLineHeaders(): array
     {
         $requestLine = "HTTP/{$this->httpVersion} {$this->statusCode} {$this->statusText}";
 
@@ -153,7 +153,7 @@ class Response
      *
      * @return array
      */
-    private function getStandardHeaders() : array
+    private function getStandardHeaders(): array
     {
         $headers = [];
 

@@ -11,19 +11,33 @@ declare(strict_types=1);
 
 namespace RinCMS\Admin\Controllers;
 
-use RinCMS\admin\models\user;
+use RinCMS\Admin\Authenticator\Authenticator;
+use RinCMS\Session\Session;
 
 class DashboardController extends AdminController implements ControllerInterface
 {
     public function show()
     {
-        $user = new user();
+        $authenticator = new Authenticator(new Session());
 
-        $user->name = 'jonty';
-        $user->color = 'purple';
+        if(!$authenticator->authenticate())
+        {
+            $this->response->redirect('/admin/login');
+        }
 
         $html = $this->view('admin::template', ['title' => 'Dashboard', 'layout' => 'dashboard']);
 
         $this->response->setContent($html);
+
+        var_dump($_SESSION);
+    }
+
+    public function logout()
+    {
+        $session = new Session();
+
+        $session->sessionEnd();
+
+        $this->response->redirect('/admin/login');
     }
 }

@@ -88,7 +88,7 @@ class Request
      * @param int $filter
      * @return string
      */
-    public function getMethod($filter = FILTER_DEFAULT) : string
+    public function getMethod($filter = FILTER_DEFAULT): string
     {
         return $this->getServerVariable('REQUEST_METHOD', $filter);
     }
@@ -99,7 +99,7 @@ class Request
      * @param int $filter
      * @return string
      */
-    public function getURI($filter = FILTER_DEFAULT) : string
+    public function getURI($filter = FILTER_DEFAULT): string
     {
         return $this->getServerVariable('REQUEST_URI', $filter);
     }
@@ -110,7 +110,7 @@ class Request
      * @param int $filter
      * @return string
      */
-    public function getQueryString($filter = FILTER_DEFAULT) : string
+    public function getQueryString($filter = FILTER_DEFAULT): string
     {
         return $this->getServerVariable('QUERY_STRING', $filter);
     }
@@ -121,7 +121,7 @@ class Request
      * @param int $filter
      * @return string
      */
-    public function getPath($filter = FILTER_DEFAULT) : string
+    public function getPath($filter = FILTER_DEFAULT): string
     {
         return $this->getServerVariable('PATH_INFO', $filter);
     }
@@ -132,7 +132,7 @@ class Request
      * @param int $filter
      * @return string
      */
-    public function getClientIp($filter = FILTER_DEFAULT) : string
+    public function getClientIp($filter = FILTER_DEFAULT): string
     {
         return $this->getServerVariable('REMOTE_ADDR', $filter);
     }
@@ -143,7 +143,7 @@ class Request
      * @param int $filter
      * @return string
      */
-    public function getHttpAcceptHeaders($filter = FILTER_DEFAULT) : string
+    public function getHttpAcceptHeaders($filter = FILTER_DEFAULT): string
     {
         return $this->getServerVariable('HTTP_ACCEPT', $filter);
     }
@@ -154,7 +154,7 @@ class Request
      * @param int $filter
      * @return string
      */
-    public function getClientUserAgent($filter = FILTER_DEFAULT) : string
+    public function getClientUserAgent($filter = FILTER_DEFAULT): string
     {
         return $this->getServerVariable('HTTP_USER_AGENT', $filter);
     }
@@ -165,7 +165,7 @@ class Request
      * @param int $filter
      * @return string
      */
-    public function getReferer($filter = FILTER_DEFAULT) : string
+    public function getReferer($filter = FILTER_DEFAULT): string
     {
         return $this->getServerVariable('HTTP_REFERER', $filter);
     }
@@ -175,7 +175,7 @@ class Request
      *
      * @return string
      */
-    public function getRawBody() : string
+    public function getRawBody(): string
     {
         return $this->inputStream;
     }
@@ -187,7 +187,7 @@ class Request
      * @param int $filter
      * @return string
      */
-    private function getServerVariable($key, int $filter) : string
+    private function getServerVariable($key, int $filter): string
     {
         $this->filterAllowed($filter);
 
@@ -205,7 +205,7 @@ class Request
      * @param int $filter
      * @return bool
      */
-    private function filterAllowed(int $filter) : bool
+    private function filterAllowed(int $filter): bool
     {
         if(!in_array($filter, $this->supportedFilters)){
             throw new \InvalidArgumentException('Filter is not valid, look in the supportedFilters.php for valid filters.');

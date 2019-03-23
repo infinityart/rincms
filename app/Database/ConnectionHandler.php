@@ -21,7 +21,7 @@ class ConnectionHandler
      * @return \PDO
      * @throws \Exception
      */
-    public function resolve(array $config) : \PDO
+    public function resolve(array $config): \PDO
     {
         $className = $this->resolveClass($config['driver']);
 
@@ -39,7 +39,7 @@ class ConnectionHandler
      * @return string
      * @throws \Exception
      */
-    private function resolveClass(string $driver)
+    private function resolveClass(string $driver): string
     {
         $className = __NAMESPACE__ . '\\' . $driver . "Connection";
 
@@ -56,7 +56,7 @@ class ConnectionHandler
      * @param object $connection
      * @throws \Exception
      */
-    private function hasImplementation(object $connection)
+    private function hasImplementation(object $connection): void
     {
         if(!$connection instanceof ConnectionInterface){
             throw new \Exception('Connection class needs to implement ConnectionInterface.');
